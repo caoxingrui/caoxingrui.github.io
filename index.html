@@ -152,6 +152,82 @@
           <div id="js-content" class="content-ll">
             
   
+    <article id="post-Maven-导入依赖是出现错误解决方法" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2019/10/10/Maven-导入依赖是出现错误解决方法/">Maven 导入依赖是出现错误解决方法</a>
+    </h1>
+  
+
+        
+        <a href="/2019/10/10/Maven-导入依赖是出现错误解决方法/" class="archive-article-date">
+  	<time datetime="2019-10-10T09:17:19.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-10-10</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>对于maven导入依赖明明操作步骤都是正确的但是就是一直出错（在idea开发环境下），我遇到了很多这样的问题，看多很多人的博客提出的解决方法都无法解决，<br>我也是在踩了很多坑之后总结出来了几个比较可靠的方法，如下：<br>1、改变maven中_setting.xml文件中的下载镜像<br>   因为很多的小同学看网上的教程会把setting.xml中的镜像改为阿里云的，如下：</p>
+<mirror>    
+
+<pre><code>&lt;id&gt;nexus-aliyun&lt;/id&gt;    
+
+&lt;mirrorOf&gt;*&lt;/mirrorOf&gt;    
+
+&lt;name&gt;Nexus aliyun&lt;/name&gt;    
+
+&lt;url&gt;http://maven.aliyun.com/nexus/content/groups/public&lt;/url&gt;    </code></pre></mirror>
+
+<p>这种会出现的问题是，有些包这个网站不存在，它下载不下来，所以会一直报错（不过这种概率是比较小的）。这个时候你就可以把此镜像注释掉，让他<br>为默认的官方的下载镜像，再下载一下。之后还可以再切换回来aliyun的镜像。所以当你觉得这个包怎么都导不进来的时候，可以尝试一下此方法。<br>2、在你自己的本地仓库找到那些有错误标注的包，然后删了，再去idae中用maven在重新导入一边<br>3、Maven在下载仓库中找不到相应资源时，会生成一个.lastUpdated为后缀的文件。如果这个.lastUpdated文件存在，那么即使换一个有资源的仓库后，<br>Maven依然不会去下载新资源。maven本地仓库中 某个构件如果因为网络或者其他的原因，没有下载成功或者下载被中断，将会出现一个LastUpdated的文件，<br>这个时候，就算网络好了，也不能正常使用这个构件 。所以你在换资源源的时候，记得从本地仓库中找到这个文件删除，再去maven clean 或者install一下。<br>在win系统中有个可以用命令行进行删除。<br>在win+R打开命令行，然后进入maven所在的文件夹中，运行一下命令</p>
+<p>for /r %i in (*lastUpdated) do del %i</p>
+<p>以上的方法可以反复使用，直到没有错误产生。看好你奥</p>
+
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2019/10/10/Maven-导入依赖是出现错误解决方法/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
     <article id="post-hello-world" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
